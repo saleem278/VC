@@ -10,13 +10,14 @@ const peer = ExpressPeerServer(server , {
 });
 app.use('/peerjs', peer);
 app.set('view engine', 'ejs')
-app.set('views', __dirname + '/views') 
+// app.set('views', __dirname + '/views') 
 app.use(express.static('public'))
 app.get('/' , (req,res)=>{
   res.send(uuidv4());
 });
 app.get('/:room' , (req,res)=>{
-    res.render('room' , {RoomId:req.params.room});
+  res.sendFile(__dirname+"/public/index.html")
+    // res.render('room' , {RoomId:req.params.room});
 });
 io.on("connection" , (socket)=>{
   socket.on('newUser' , (id , room)=>{
